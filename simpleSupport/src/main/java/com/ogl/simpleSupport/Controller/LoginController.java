@@ -31,6 +31,7 @@ public class LoginController {
     public ResponseEntity cadastrar(@RequestParam String nome,
                                     @RequestParam String sobrenome,
                                     @RequestParam String email,
+                                    @RequestParam String telefone,
                                     @RequestParam String senha) {
         try {
             if (userService.findByEmail(email).isPresent()) {
@@ -40,6 +41,7 @@ public class LoginController {
             User user = new User();
             user.setName(nome + " " + sobrenome);
             user.setEmail(email);
+            user.setNumber(telefone);
             user.setPassword(senha);
 
             userService.cadastrar(user);

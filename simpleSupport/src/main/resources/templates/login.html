@@ -4,19 +4,28 @@
 <meta charset="UTF-8">
 <title>SimpleSupport</title>
 <body>
-    <div id="texto-principal" class="text-center">
-        <h1>Facilite a vida de seus clientes <br> <span class="highlight">da melhor forma!</span></h1>
-    </div>
+<header class="menu-superior">
+    <nav>
+        <div class="menu-container">
+            <a class="logo">SimpleSupport</a>
+            <button class="btn btn-outline-secondary btn-login">Login</button>
+        </div>
+    </nav>
+</header>
 
-    <div class="container text-center mt-4">
-        <p>O SimpleSupport oferece uma plataforma de atendimento ao cliente que torna a abertura de chamados simples, prática e intuitiva, proporcionando uma experiência sem complicações para a sua empresa.</p>
-    </div>
+<div id="texto-principal" class="text-center">
+    <h1>Facilite a vida de seus clientes <br> <span class="highlight">da melhor forma!</span></h1>
+</div>
 
-    <div class="container text-center mt-5 botoes">
-        <button class="btn btn-secondary btn-login btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg">Sou cliente</button>
-        <br>
-        <button class="btn btn-cadastro btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg" onclick="modalCadastro()">Quero me tornar um cliente</button>
-    </div>
+<div class="container text-center mt-4">
+    <p>O SimpleSupport oferece uma plataforma de atendimento ao cliente que torna a abertura de chamados simples, prática e intuitiva, proporcionando uma experiência sem complicações para a sua empresa.</p>
+</div>
+
+<div class="container text-center mt-5 botoes">
+    <button class="btn btn-secondary btn-login btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg">Sou cliente</button>
+    <br>
+    <button class="btn btn-cadastro btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg" onclick="modalCadastro()">Quero me tornar um cliente</button>
+</div>
 
 <div th:replace="/modais/modal_cadastro"></div>
 <footer th:replace="~{fragments/scripts :: scriptsContent('/assets/js/login.js')}"></footer>
