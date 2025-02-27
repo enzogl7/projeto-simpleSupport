@@ -64,3 +64,7 @@ function cadastrar() {
         }
     });
 }
+
+function modalLogin() {
+    $('#modalLogin').modal('show');
+}

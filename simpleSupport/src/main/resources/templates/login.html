@@ -8,7 +8,7 @@
     <nav>
         <div class="menu-container">
             <a class="logo">SimpleSupport</a>
-            <button class="btn btn-outline-secondary btn-login">Login</button>
+            <button class="btn btn-outline-secondary btn-login" onclick="modalLogin()">Login</button>
         </div>
     </nav>
 </header>
@@ -22,11 +22,12 @@
 </div>
 
 <div class="container text-center mt-5 botoes">
-    <button class="btn btn-secondary btn-login btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg">Sou cliente</button>
+    <button class="btn btn-secondary btn-login btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg" onclick="modalLogin()">Sou cliente</button>
     <br>
     <button class="btn btn-cadastro btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg" onclick="modalCadastro()">Quero me tornar um cliente</button>
 </div>
 
+<div th:replace="/modais/modal_login"></div>
 <div th:replace="/modais/modal_cadastro"></div>
 <footer th:replace="~{fragments/scripts :: scriptsContent('/assets/js/login.js')}"></footer>
 </body>
