@@ -12,14 +12,13 @@
         <p>O SimpleSupport oferece uma plataforma de atendimento ao cliente que torna a abertura de chamados simples, prática e intuitiva, proporcionando uma experiência sem complicações para a sua empresa.</p>
     </div>
 
-    <div class="container text-center mt-5">
-        <button class="btn btn-secondary btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg">Sou cliente</button>
+    <div class="container text-center mt-5 botoes">
+        <button class="btn btn-secondary btn-login btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg">Sou cliente</button>
         <br>
         <button class="btn btn-cadastro btn-lg mx-2 py-3 px-5 rounded-pill shadow-lg">Quero me tornar um cliente</button>
     </div>
 
 
-
-<footer th:replace="fragments/scripts :: scriptsContent('')"></footer>
+<footer th:replace="~{fragments/scripts :: scriptsContent('/assets/js/login.js')}"></footer>
 </body>
 </html>
