@@ -34,13 +34,15 @@ function cadastrar() {
     $.ajax({
         url: '/cadastrar',
         type: 'POST',
-        data: {
+        contentType: 'application/json',
+        data: JSON.stringify({
             nome: nomeCadastro,
             sobrenome: sobrenomeCadastro,
             email: emailCadastro,
             telefone: telefoneCadastro,
-            senha: senhaCadastro
-        },
+            senha: senhaCadastro,
+            role: "USER"
+        }),
         complete: function(xhr, status) {
             switch (xhr.status) {
                 case 200:

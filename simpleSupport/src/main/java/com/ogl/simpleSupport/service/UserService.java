@@ -1,8 +1,10 @@
-package com.ogl.simpleSupport.Service;
+package com.ogl.simpleSupport.service;
 
-import com.ogl.simpleSupport.Model.User;
-import com.ogl.simpleSupport.Repository.UserRepository;
+import com.ogl.simpleSupport.model.RegisterDTO;
+import com.ogl.simpleSupport.model.User;
+import com.ogl.simpleSupport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User cadastrar(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public Optional<User> findByEmail(String email) {
+    public UserDetails findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
