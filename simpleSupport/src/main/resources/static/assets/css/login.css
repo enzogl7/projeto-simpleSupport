@@ -134,3 +134,19 @@ p {
     transform: translateY(-50px);
     animation: slideIn 1s forwards;
 }
+
+.mensagem-escondida {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    color: red;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.mensagem-visivel {
+    display: block;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    color: red;
+}

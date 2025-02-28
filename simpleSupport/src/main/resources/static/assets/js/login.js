@@ -14,12 +14,22 @@ function modalCadastro() {
     $('#modalCadastro').modal('show');
 }
 
+function validarSenha(senha) {
+    var regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regexSenha.test(senha);
+}
+
 function cadastrar() {
     var nomeCadastro = document.getElementById('nomeCadastro').value;
     var sobrenomeCadastro = document.getElementById('sobrenomeCadastro').value;
     var emailCadastro = document.getElementById('emailCadastro').value;
     var telefoneCadastro = document.getElementById('telefoneCadastro').value;
     var senhaCadastro = document.getElementById('senhaCadastro').value;
+
+    if(!validarSenha(senhaCadastro)) {
+        exibirMensagemErro(mensagemErro, 'A senha deve ter no mínimo 8 caracteres, incluindo maiúsculas, minúsculas, números e caracteres especiais.');
+        return;
+    }
 
     $.ajax({
         url: '/cadastrar',
@@ -48,6 +58,14 @@ function cadastrar() {
                         text: "Email já cadastrado.",
                         icon: "warning",
                         confirmButtonText: 'OK'
+                    })
+                    break;
+                case 409:
+                    Swal.fire({
+                        title: "Ops!",
+                        text: "Telefone já cadastrado.",
+                        icon: "warning",
+                        confirmButtonText: "OK"
                     })
                     break;
                 case 500:

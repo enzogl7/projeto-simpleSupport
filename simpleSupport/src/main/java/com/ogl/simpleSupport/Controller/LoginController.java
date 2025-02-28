@@ -38,6 +38,10 @@ public class LoginController {
                 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Email já cadastrado.");
             }
 
+            if (userService.findByNumber(telefone).isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Telefone já cadastrado.");
+            }
+
             User user = new User();
             user.setName(nome + " " + sobrenome);
             user.setEmail(email);

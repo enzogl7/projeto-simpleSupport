@@ -14,8 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class User {
 
-    // ARRUMAR GETTER E SETTER QUE NAO FUNCIONA
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
