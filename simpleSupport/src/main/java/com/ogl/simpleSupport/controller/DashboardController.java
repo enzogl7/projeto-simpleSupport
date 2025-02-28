@@ -20,4 +20,9 @@ public class DashboardController {
         model.addAttribute("usuario", userService.getUsuarioLogado().getName());
         return "dashboard/home";
     }
+
+    @GetMapping("/chamados")
+    public String chamados(Model model) {
+        return "dashboard/chamados";
+    }
 }

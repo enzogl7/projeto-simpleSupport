@@ -3,19 +3,19 @@
 <head>
 </head>
 
-<div th:fragment="fragment">
-  <header>
-    <nav class="navbar">
-      <div class="navbar-container">
-        <ul class="navbar-menu">
-          <li><a href="/dashboard/home">Home</a></li>
-          <li><a href="/dashboard/profile">Perfil</a></li>
-          <li><a href="/dashboard/settings">Configurações</a></li>
-          <li><a href="/logout">Sair</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+<body>
+<div th:fragment="navbar">
+  <div class="sidebar" id="sidebar">
+    <h2 class="text-center sidebar-title">SimpleSupport</h2>
+    <ul class="sidebar-menu">
+      <li><a href="/dashboard/home"><i class="bi bi-house-door-fill"></i> Home</a></li>
+      <li><a href="/dashboard/configuracoes"><i class="bi bi-gear-fill"></i> Configurações</a></li>
+      <li><a href="/dashboard/admin"><i class="bi bi-lock-fill"></i> Config. Administrativas</a></li>
+      <li><a href="/dashboard/perfil"><i class="bi bi-person-fill"></i> Perfil</a></li>
+    </ul>
+  </div>
 </div>
+
+</body>
 
 </html>
