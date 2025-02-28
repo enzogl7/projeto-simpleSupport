@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/cadastrar", "/login", "/webjars/**", "/resources/**", "/assets/**").permitAll()
+                        .requestMatchers("/login", "/cadastrar", "/login", "/webjars/**", "/resources/**", "/assets/**", "/templates/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

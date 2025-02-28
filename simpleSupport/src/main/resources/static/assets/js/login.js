@@ -26,6 +26,17 @@ function cadastrar() {
     var telefoneCadastro = document.getElementById('telefoneCadastro').value;
     var senhaCadastro = document.getElementById('senhaCadastro').value;
 
+
+    if (!nomeCadastro || !sobrenomeCadastro || !emailCadastro || !telefoneCadastro || !senhaCadastro) {
+        Swal.fire({
+            title: "Ops!",
+            text: "Preencha todos os campos!",
+            icon: "warning",
+            confirmButtonText: 'OK'
+        })
+        return;
+    }
+
     if(!validarSenha(senhaCadastro)) {
         exibirMensagemErro(mensagemErro, 'A senha deve ter no mínimo 8 caracteres, incluindo maiúsculas, minúsculas, números e caracteres especiais.');
         return;
