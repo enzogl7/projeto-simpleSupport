@@ -88,3 +88,29 @@ function cadastrar() {
 function modalLogin() {
     $('#modalLogin').modal('show');
 }
+
+function logar() {
+    var emailLogin = document.getElementById('emailLogin').value;
+    var senhaLogin = document.getElementById('senhaLogin').value;
+
+    $.ajax({
+        url: '/login',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            email: emailLogin,
+            password: senhaLogin,
+        }),
+        success: function(response) {
+            window.location.href = "/dashboard/home";
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                title: "Ops!",
+                text: "Email ou senha inválidos.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+}

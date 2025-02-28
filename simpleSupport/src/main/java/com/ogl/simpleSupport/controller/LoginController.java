@@ -1,9 +1,13 @@
 package com.ogl.simpleSupport.controller;
 
 import com.ogl.simpleSupport.model.AuthenticationDTO;
+import com.ogl.simpleSupport.model.LoginResponseDTO;
 import com.ogl.simpleSupport.model.RegisterDTO;
 import com.ogl.simpleSupport.model.User;
+import com.ogl.simpleSupport.service.TokenService;
 import com.ogl.simpleSupport.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +29,11 @@ public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @GetMapping("/login")
-    public String home() {
+    public String loginPage() {
         return "login";
     }
 
@@ -52,9 +59,19 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login (@RequestBody AuthenticationDTO data) {
+    public ResponseEntity login (@RequestBody AuthenticationDTO data, HttpServletResponse response) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(3600);
+
+        response.addCookie(cookie);
+
         return ResponseEntity.ok().build();
     }
 }

@@ -8,3 +8,5 @@ function exibirMensagemErro(elemento, mensagem) {
         elemento.classList.add('mensagem-escondida');
     }, 2500);
 }
+
+
