@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RequestMapping("/empresa")
 @Controller
 public class EmpresaController {
@@ -61,8 +64,10 @@ public class EmpresaController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um usuário com esse email.");
             }
 
-            mailService.enviarEmail(emailFuncionario, "Convite para empresa | SimpleSupport", "", "emails/convite_funcionario");
+            String empresaResponsavel = userService.getUsuarioLogado().getEmpresaResponsavel().getNome();
+            String linkConvite = "https://seusistema.com.br/validar-convite";
 
+            mailService.enviarEmailConvite(emailFuncionario, "Convite para empresa | SimpleSupport", empresaResponsavel, linkConvite, "emails/convite_funcionario");
 
             System.out.println("Funcionário convidado: " + emailFuncionario);
             return ResponseEntity.ok().build();
@@ -70,4 +75,5 @@ public class EmpresaController {
             return ResponseEntity.badRequest().build();
         }
     }
+
 }

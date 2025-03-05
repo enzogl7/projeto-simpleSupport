@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import java.util.List;
+
 @Service
 public class MailService {
 
@@ -21,10 +23,11 @@ public class MailService {
     @Value("${spring.mail.username}")
     private String remetente;
 
-    public String enviarEmail(String destinatario, String assunto, String mensagem, String template) {
+    public String enviarEmailConvite(String destinatario, String assunto, String nomeEmpresa, String linkConvite, String template) {
         try {
             Context context = new Context();
-            context.setVariable("mensagem", mensagem);
+            context.setVariable("nomeEmpresa", nomeEmpresa);
+            context.setVariable("linkConvite", linkConvite);
 
             String htmlContent = templateEngine.process(template, context);
 

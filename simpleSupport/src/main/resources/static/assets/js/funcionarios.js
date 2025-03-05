@@ -5,6 +5,15 @@ function modalConvidarFuncionario() {
 function convidarFuncionario() {
     var emailFuncionario = document.getElementById('emailFuncionario').value;
 
+    Swal.fire({
+        title: "Enviando convite...",
+        text: "Aguarde enquanto enviamos o email.",
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
     $.ajax({
         url: '/empresa/convidarfuncionario',
         type: 'POST',

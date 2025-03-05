@@ -5,28 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convite para entrar na empresa</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f9f9f9;">
-<table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f9f9f9;">
-    <tr>
-        <td align="center" style="padding: 20px 0;">
-            <table role="presentation" style="width: 600px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-                <tr>
-                    <td style="padding: 20px; text-align: center;">
-                        <h1 style="color: #333333;">Convite para participar da empresa</h1>
-                        <p style="font-size: 18px; color: #666666;">Você foi convidado para se juntar à uma empresa.</p>
-                        <p style="font-size: 16px; color: #666666;">Clique no botão abaixo para aceitar o convite:</p>
-
-                        <a href="#" style="display: inline-block; padding: 12px 24px; font-size: 16px; color: #ffffff; background-color: #007bff; text-decoration: none; border-radius: 5px;">Aceitar Convite</a>
-
-                        <p style="margin-top: 20px; font-size: 14px; color: #999999;">Se o botão não funcionar, copie e cole o link abaixo no seu navegador:</p>
-                        <p style="font-size: 14px; color: #007bff; word-break: break-word;">{{linkConvite}}</p>
-
-                        <p style="margin-top: 30px; font-size: 12px; color: #999999;">Este convite expira em 7 dias.</p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; padding: 20px;">
+<div style="max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <h2>Você foi convidado para a empresa <strong th:text="${nomeEmpresa}"></strong>!</h2>
+    <p>Olá,</p>
+    <p>Você recebeu este convite para fazer parte da empresa <strong th:text="${nomeEmpresa}"></strong> no sistema SimpleSupport.</p>
+    <p>Para aceitar o convite e configurar sua conta, clique no botão abaixo:</p>
+    <div style="text-align: center; margin: 20px 0;">
+        <a th:href="${linkConvite}" style="background-color: darkblue; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Aceitar Convite</a>
+    </div>
+    <p>Se você não esperava receber este convite, pode ignorar este email.</p>
+    <p>Atenciosamente, <br> <strong>Equipe SimpleSupport</strong></p>
+</div>
 </body>
 </html>
