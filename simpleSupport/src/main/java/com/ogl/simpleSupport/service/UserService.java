@@ -45,4 +45,8 @@ public class UserService {
     public void salvarEdicao(User user) {
         userRepository.save(user);
     }
+
+    public User findById(Integer id) {
+        return userRepository.findById(id).get();
+    }
 }

@@ -55,3 +55,52 @@ function convidarFuncionario() {
         }
     });
 }
+
+function removerDaEmpresa(button) {
+    var idFuncionario = button.getAttribute('data-id');
+    Swal.fire({
+        title: 'Tem certeza que deseja remover este funcionário da empresa?',
+        text: "Caso cometa um erro, terá que convidar esse usuário a empresa novamente.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, remover.',
+        cancelButtonText: 'Não, voltar.',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            removerFuncionario(idFuncionario);
+        } else {
+            Swal.fire('Cancelado', 'O funcionário não foi removido', 'info');
+        }
+    });
+}
+
+function removerFuncionario(idFuncionario) {
+    $.ajax({
+        url: '/empresa/removerfuncionario',
+        type: 'POST',
+        data: {
+            idFuncionario: idFuncionario
+        },
+        success: function(response) {
+            Swal.fire({
+                title: "Pronto!",
+                text: "Funcionário removido com sucesso.",
+                icon: "success",
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                title: "Ops!",
+                text: "Erro ao remover funcionário",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+}

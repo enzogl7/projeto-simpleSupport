@@ -54,7 +54,7 @@
           <td class="col-sm-2 text-center" th:text="${funcionario.name}"></td>
           <td class="col-sm-2 text-center" th:text="${funcionario.number}"></td>
           <td class="col-sm-1 text-center">
-            <button class="btn btn-danger btn-sm" onclick="removerDaEmpresa()">Remover</button>
+            <button th:data-id="${funcionario.id}" class="btn btn-danger btn-sm" onclick="removerDaEmpresa(this)">Remover</button>
           </td>
         </tr>
         </tbody>

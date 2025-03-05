@@ -133,5 +133,17 @@ public class EmpresaController {
         return "/login";
     }
 
+    @PostMapping("/removerfuncionario")
+    public ResponseEntity removerFuncionario(@RequestParam("idFuncionario") String idFuncionario) {
+        try {
+            User user = userService.findById(Integer.valueOf(idFuncionario));
+            user.setEmpresa(null);
+            userService.salvarEdicao(user);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 
 }
