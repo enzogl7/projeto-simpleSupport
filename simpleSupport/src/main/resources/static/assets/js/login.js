@@ -155,6 +155,14 @@ function cadastrar() {
                         confirmButtonText: "OK"
                     })
                     break;
+                case 226:
+                    Swal.fire({
+                        title: "Ops!",
+                        text: "O usuário com o email informado já é responsável por uma empresa.",
+                        icon: "warning",
+                        confirmButtonText: "OK"
+                    })
+                    break;
                 case 404:
                     Swal.fire({
                         title: "Ops!",

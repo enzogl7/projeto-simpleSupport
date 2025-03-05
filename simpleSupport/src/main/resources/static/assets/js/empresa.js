@@ -25,6 +25,11 @@ function editarEmpresa() {
         return;
     }
 
+    if(!validarCNPJ(cnpj)) {
+        exibirMensagemErro(mensagemErroCnpj, 'O CNPJ está em um formato inválido ou vazio.');
+        return;
+    }
+
     $.ajax({
         url: '/empresa/salvaredicao',
         type: 'POST',

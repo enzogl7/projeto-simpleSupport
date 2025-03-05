@@ -5,6 +5,8 @@ import com.ogl.simpleSupport.repository.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmpresaService {
     @Autowired
@@ -27,5 +29,9 @@ public class EmpresaService {
 
     public void salvarEdicao(Empresa empresa) {
         empresaRepository.save(empresa);
+    }
+
+    public List<Empresa> findByEmailResponsavel(String emailResponsavel) {
+        return empresaRepository.findByEmailResponsavel(emailResponsavel);
     }
 }

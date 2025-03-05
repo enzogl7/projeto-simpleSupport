@@ -55,6 +55,10 @@ public class LoginController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O usuário responsável pela empresa com o email informado não foi encontrado.");
             }
 
+            if (data.emailResponsavelEmpresa() != "" && !empresaService.findByEmailResponsavel(data.emailResponsavelEmpresa()).isEmpty()) {
+                return ResponseEntity.status(HttpStatus.IM_USED).body("O usuário com o email informado já é responsável por uma empresa.");
+            }
+
             // criação de empresa
             if (data.nomeEmpresa() != "" && data.cnpjEmpresa() != "" && data.emailEmpresa() != "" && data.razaoSocialEmpresa() != "" && data.emailResponsavelEmpresa() != "") {
                 Empresa empresaCriada = empresaService.save(data.nomeEmpresa(), data.cnpjEmpresa(), data.emailEmpresa(), data.razaoSocialEmpresa(), data.emailResponsavelEmpresa());

@@ -25,16 +25,16 @@
               <span class="link">Home</span>
             </a>
           </li>
-          <li th:if="${responsavelPorEmpresa}" class="list">
-            <a href="/dashboard/empresa" class="nav-link">
-              <i class="bi bi-building-fill-gear icon"></i>
-              <span class="link">Gerenciar empresa</span>
-            </a>
-          </li>
           <li class="list">
             <a href="/dashboard/chamados" class="nav-link">
               <i class="bi bi-headset icon"></i>
               <span class="link">Chamados</span>
+            </a>
+          </li>
+          <li th:if="${responsavelPorEmpresa}" class="list">
+            <a href="/dashboard/empresa" class="nav-link">
+              <i class="bi bi-building-fill-gear icon"></i>
+              <span class="link">Gerenciar empresa</span>
             </a>
           </li>
           <li class="list">
