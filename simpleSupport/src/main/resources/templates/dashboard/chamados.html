@@ -5,11 +5,74 @@
     <meta charset="UTF-8">
     <title>Chamados | SimpleSupport</title>
 </head>
-<body>
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+<body class="pt-5">
+    <div th:replace="~{fragments/navbar :: navbar}" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"></div>
 
-  <h1 class="text-center" style="font-size: 12rem">CHAMADOS</h1>
+    <div class="container-fluid">
+        <h1 class="text-xl-start pt-5 ms-3">Chamados</h1>
+    </div>
+    <hr>
 
-<footer th:replace="~{fragments/scripts :: scriptsContent('')}"></footer>
+    <div class="container-fluid">
+        <div class="row ms-3">
+            <div class="col-sm-2">
+                <label for="pesquisaId">Pesquisa por ID</label>
+                <input class="form-control" id="pesquisaId" name="pesquisaId" type="text" placeholder="Insira o ID do chamado">
+            </div>
+            <div class="col-sm-2">
+                <label for="pesquisaNome">Pesquisa por título</label>
+                <input class="form-control" id="pesquisaNome" name="pesquisaNome" type="text" placeholder="Insira o nome do chamado"></div>
+            <div class="col-sm-2">
+                <label for="pesquisaStatus">Status</label>
+                <select class="form-control" name="pesquisaStatus" id="pesquisaStatus">
+                    <option value="">Em análise</option>
+                    <option value="">Popular</option>
+                    <option value="">Com</option>
+                    <option value="">ThymeLeaf</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label for="pesquisaSistema">Sistema</label>
+                <select class="form-control" name="pesquisaSistema" id="pesquisaSistema">
+                    <option value="">MarketInfo</option>
+                    <option value="">Soundregister</option>
+                    <option value="">Popular com thymeleaf</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label for="pesquisaDataCriacao">Data de criação</label>
+                <input class="form-control" id="pesquisaDataCriacao" name="pesquisaDataCriacao" type="date">
+            </div>
+            <div class="col-sm-2 d-flex align-items-end">
+                <button type="button" class="btn btn-primary me-2" onclick="pesquisarChamados()">Pesquisar</button>
+                <button type="button" class="btn btn-outline-primary" onclick="modalNovoChamado()">Novo chamado</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-4">
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="tabelaChamados" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col-sm-1 text-center">ID</th>
+                        <th class="col-sm-1 text-center">Título</th>
+                        <th class="col-sm-2 text-center">Descrição</th>
+                        <th class="col-sm-1 text-center">Status</th>
+                        <th class="col-sm-2 text-center">Sistema</th>
+                        <th class="col-sm-2 text-center">Data criação</th>
+                        <th class="col-sm-2 text-center">Responsável</th>
+                        <th class="col-sm-1 text-center">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/scripts :: scriptsContent('')}"></footer>
 </body>
 </html>
