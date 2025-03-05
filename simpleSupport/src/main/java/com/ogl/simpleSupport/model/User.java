@@ -40,6 +40,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "empresa")
     private Empresa empresa;
 
+    @ManyToOne
+    @JoinColumn(name = "empresa_responsavel")
+    private Empresa empresaResponsavel;
+
     public User(String name, String email, String password, String number, UserRole role, String tipoUsuario, Empresa empresa) {
         this.name = name;
         this.email = email;

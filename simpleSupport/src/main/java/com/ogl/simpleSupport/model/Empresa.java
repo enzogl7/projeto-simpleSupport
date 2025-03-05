@@ -22,4 +22,5 @@ public class Empresa {
     private String cnpj;
     private String emailEmpresa;
     private String razaoSocial;
+    private String emailResponsavel;
 }

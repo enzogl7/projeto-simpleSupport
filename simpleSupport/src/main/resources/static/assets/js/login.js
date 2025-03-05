@@ -61,10 +61,11 @@ function verificarCamposEmpresa() {
     var cnpjEmpresa = document.getElementById('cnpjEmpresa').value;
     var emailEmpresa = document.getElementById('emailEmpresa').value;
     var razaoSocialEmpresa = document.getElementById('razaoSocialEmpresa').value;
+    var emailResponsavelEmpresa = document.getElementById('emailResponsavelEmpresa').value;
 
     if (document.getElementById('cadastroEmpresa').style.display !== 'none') {
 
-        if (!nomeEmpresa || !cnpjEmpresa || !emailEmpresa || !razaoSocialEmpresa) {
+        if (!nomeEmpresa || !cnpjEmpresa || !emailEmpresa || !razaoSocialEmpresa || !emailResponsavelEmpresa) {
             Swal.fire({
                 title: "Ops!",
                 text: "Preencha todos os campos de empresa!",
@@ -94,6 +95,7 @@ function cadastrar() {
     var cnpjEmpresa = document.getElementById('cnpjEmpresa').value;
     var emailEmpresa = document.getElementById('emailEmpresa').value;
     var razaoSocialEmpresa = document.getElementById('razaoSocialEmpresa').value;
+    var emailResponsavelEmpresa = document.getElementById('emailResponsavelEmpresa').value;
 
     if (!nomeCadastro || !sobrenomeCadastro || !emailCadastro || !telefoneCadastro || !senhaCadastro || !tipoUsuario) {
         Swal.fire({
@@ -134,7 +136,8 @@ function cadastrar() {
             nomeEmpresa: nomeEmpresa,
             cnpjEmpresa: cnpjEmpresa,
             emailEmpresa: emailEmpresa,
-            razaoSocialEmpresa: razaoSocialEmpresa
+            razaoSocialEmpresa: razaoSocialEmpresa,
+            emailResponsavelEmpresa: emailResponsavelEmpresa
         }),
         complete: function(xhr, status) {
             switch (xhr.status) {
@@ -159,6 +162,14 @@ function cadastrar() {
                     Swal.fire({
                         title: "Ops!",
                         text: "Telefone já cadastrado.",
+                        icon: "warning",
+                        confirmButtonText: "OK"
+                    })
+                    break;
+                case 404:
+                    Swal.fire({
+                        title: "Ops!",
+                        text: "Não existe um usuário com esse email informado para ser o responsável pela empresa.",
                         icon: "warning",
                         confirmButtonText: "OK"
                     })

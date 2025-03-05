@@ -50,15 +50,21 @@ public class LoginController {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Telefone já cadastrado.");
             }
 
-            if (data.nomeEmpresa() != "" && data.cnpjEmpresa() != "" && data.emailEmpresa() != "" && data.razaoSocialEmpresa() != "") {
-                Empresa empresaCriada = empresaService.save(data.nomeEmpresa(), data.cnpjEmpresa(), data.emailEmpresa(), data.razaoSocialEmpresa());
+            if (data.emailResponsavelEmpresa() != "" && userService.findByEmail(data.emailResponsavelEmpresa()) == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O usuário responsável pela empresa com o email informado não foi encontrado.");
+            }
+
+            // criação de empresa
+            if (data.nomeEmpresa() != "" && data.cnpjEmpresa() != "" && data.emailEmpresa() != "" && data.razaoSocialEmpresa() != "" && data.emailResponsavelEmpresa() != "") {
+                Empresa empresaCriada = empresaService.save(data.nomeEmpresa(), data.cnpjEmpresa(), data.emailEmpresa(), data.razaoSocialEmpresa(), data.emailResponsavelEmpresa());
+                User usuarioResponsavel = (User) userService.findByEmail(data.emailResponsavelEmpresa());
+                usuarioResponsavel.setEmpresaResponsavel(empresaCriada);
                 empresa = empresaCriada;
             }
 
             String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
             String nomeCompleto = data.nome() + " " + data.sobrenome();
             User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario(), empresa);
-
             userService.cadastrar(newUser);
             return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
         } catch (Exception e) {

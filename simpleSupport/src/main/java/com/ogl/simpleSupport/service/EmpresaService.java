@@ -10,12 +10,13 @@ public class EmpresaService {
     @Autowired
     private EmpresaRepository empresaRepository;
 
-    public Empresa save(String nome, String cnpj, String email, String razaoSocial) {
+    public Empresa save(String nome, String cnpj, String email, String razaoSocial, String emailResponsavel) {
         Empresa empresa = new Empresa();
         empresa.setNome(nome);
         empresa.setCnpj(cnpj);
         empresa.setEmailEmpresa(email);
         empresa.setRazaoSocial(razaoSocial);
+        empresa.setEmailResponsavel(emailResponsavel);
         empresaRepository.save(empresa);
         return empresa;
     }
