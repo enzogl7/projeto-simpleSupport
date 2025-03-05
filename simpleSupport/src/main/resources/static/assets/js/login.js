@@ -25,9 +25,14 @@ function cadastrar() {
     var emailCadastro = document.getElementById('emailCadastro').value;
     var telefoneCadastro = document.getElementById('telefoneCadastro').value;
     var senhaCadastro = document.getElementById('senhaCadastro').value;
+    var tipoUsuario;
+    if (document.getElementById('usuario').checked) {
+        tipoUsuario = 'usuario';
+    } else if (document.getElementById('empresa').checked) {
+        tipoUsuario = 'empresa';
+    }
 
-
-    if (!nomeCadastro || !sobrenomeCadastro || !emailCadastro || !telefoneCadastro || !senhaCadastro) {
+    if (!nomeCadastro || !sobrenomeCadastro || !emailCadastro || !telefoneCadastro || !senhaCadastro || !tipoUsuario) {
         Swal.fire({
             title: "Ops!",
             text: "Preencha todos os campos!",
@@ -52,7 +57,8 @@ function cadastrar() {
             email: emailCadastro,
             telefone: telefoneCadastro,
             senha: senhaCadastro,
-            role: "USER"
+            role: "USER",
+            tipoUsuario: tipoUsuario
         }),
         complete: function(xhr, status) {
             switch (xhr.status) {
@@ -110,7 +116,7 @@ function logar() {
         contentType: 'application/json',
         data: JSON.stringify({
             email: emailLogin,
-            password: senhaLogin,
+            password: senhaLogin
         }),
         success: function(response) {
             window.location.href = "/dashboard/home";

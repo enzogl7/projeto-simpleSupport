@@ -49,7 +49,7 @@ public class LoginController {
             }
             String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
             String nomeCompleto = data.nome() + " " + data.sobrenome();
-            User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role());
+            User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario());
 
             userService.cadastrar(newUser);
             return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
@@ -71,6 +71,13 @@ public class LoginController {
         cookie.setMaxAge(3600);
 
         response.addCookie(cookie);
+
+        User usuario = (User) userService.findByEmail(data.email());
+        String tipoUsuario = usuario.getTipoUsuario();
+
+        if (tipoUsuario.equals("usuario")) {
+            // TODO: redirecionar para a plataforma de usuário
+        }
 
         return ResponseEntity.ok().build();
     }
