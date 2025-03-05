@@ -1,0 +1,19 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aceitar Convite</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container text-center">
+    <h1>Você foi convidado para a empresa <span th:text="${empresa}"></span>!</h1>
+    <p>Para entrar, clique no botão abaixo:</p>
+    <form action="/aceitar-convite" method="post">
+        <input type="hidden" name="token" id="token" value="">
+        <button type="submit" class="btn btn-success">Aceitar Convite</button>
+    </form>
+</div>
+
+</body>
+</html>
