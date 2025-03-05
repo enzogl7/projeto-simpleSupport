@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/links :: headContent('')}"></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Funcionários | SimpleSupport</title>
+</head>
+<body class="pt-5">
+<div th:replace="~{fragments/navbar :: navbar}" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"></div>
+
+<div class="container-fluid">
+  <h1 class="text-xl-start pt-5 ms-3">Funcionários</h1>
+</div>
+<hr>
+
+<div class="container-fluid">
+  <div class="row ms-3 align-items-end">
+    <div class="col-sm-3">
+      <label for="pesquisaEmailUsuario">Pesquisa por email</label>
+      <input class="form-control" id="pesquisaEmailUsuario" name="pesquisaEmailUsuario" type="text" placeholder="Insira o email do funcionário">
+    </div>
+    <div class="col-sm-3">
+      <label for="pesquisaNomeUsuario">Pesquisa por telefone</label>
+      <input class="form-control" id="pesquisaNomeUsuario" name="pesquisaNomeUsuario" type="text" placeholder="Insira o nome do funcionário">
+    </div>
+    <div class="col-sm-3">
+      <label for="pesquisaTelefone">Telefone</label>
+      <input class="form-control" id="pesquisaTelefone" name="pesquisaTelefone" type="text" placeholder="Insira o telefone do funcionário">
+    </div>
+    <div class="col-sm-3 d-flex justify-content-end">
+      <button type="button" class="btn btn-outline-primary" onclick="modalConvidarFuncionario()">Convidar funcionário</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid pt-4">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table id="tabelaFuncionarios" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th class="col-sm-1 text-center">ID</th>
+          <th class="col-sm-1 text-center">Email</th>
+          <th class="col-sm-2 text-center">Nome</th>
+          <th class="col-sm-2 text-center">Telefone</th>
+          <th class="col-sm-1 text-center">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="funcionario : ${funcionarios}">
+          <td class="col-sm-1 text-center" th:text="${funcionario.id}"></td>
+          <td class="col-sm-1 text-center" th:text="${funcionario.email}"></td>
+          <td class="col-sm-2 text-center" th:text="${funcionario.name}"></td>
+          <td class="col-sm-2 text-center" th:text="${funcionario.number}"></td>
+          <td class="col-sm-1 text-center">
+            <button class="btn btn-danger btn-sm" onclick="removerDaEmpresa()">Remover</button>
+          </td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer th:replace="~{fragments/scripts :: scriptsContent('')}"></footer>
+</body>
+</html>

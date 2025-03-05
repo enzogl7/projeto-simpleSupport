@@ -1,5 +1,6 @@
 package com.ogl.simpleSupport.service;
 
+import com.ogl.simpleSupport.model.Empresa;
 import com.ogl.simpleSupport.model.User;
 import com.ogl.simpleSupport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +36,9 @@ public class UserService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return (User) userRepository.findByEmail(username);
+    }
+
+    public List<User> findByEmpresa(Empresa empresa) {
+        return userRepository.findByEmpresa(empresa);
     }
 }
