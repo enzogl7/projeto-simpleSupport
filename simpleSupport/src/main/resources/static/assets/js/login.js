@@ -59,28 +59,20 @@ function validarCNPJ(cnpj) {
 function verificarCamposEmpresa() {
     var nomeEmpresa = document.getElementById('nomeEmpresa').value;
     var cnpjEmpresa = document.getElementById('cnpjEmpresa').value;
+    var emailEmpresa = document.getElementById('emailEmpresa').value;
+    var razaoSocialEmpresa = document.getElementById('razaoSocialEmpresa').value;
 
     if (document.getElementById('cadastroEmpresa').style.display !== 'none') {
-        if (nomeEmpresa.trim() === "") {
+
+        if (!nomeEmpresa || !cnpjEmpresa || !emailEmpresa || !razaoSocialEmpresa) {
             Swal.fire({
                 title: "Ops!",
-                text: "Preencha o nome da empresa.",
+                text: "Preencha todos os campos de empresa!",
                 icon: "warning",
                 confirmButtonText: 'OK'
-            })
+            });
             return false;
         }
-
-        if (cnpjEmpresa.trim() === "") {
-            Swal.fire({
-                title: "Ops!",
-                text: "Preencha o CNPJ da empresa.",
-                icon: "warning",
-                confirmButtonText: 'OK'
-            })
-            return false;
-        }
-
     }
 
     return true;
@@ -100,6 +92,8 @@ function cadastrar() {
     }
     var nomeEmpresa = document.getElementById('nomeEmpresa').value;
     var cnpjEmpresa = document.getElementById('cnpjEmpresa').value;
+    var emailEmpresa = document.getElementById('emailEmpresa').value;
+    var razaoSocialEmpresa = document.getElementById('razaoSocialEmpresa').value;
 
     if (!nomeCadastro || !sobrenomeCadastro || !emailCadastro || !telefoneCadastro || !senhaCadastro || !tipoUsuario) {
         Swal.fire({
@@ -116,7 +110,7 @@ function cadastrar() {
         return;
     }
 
-    if(!validarCNPJ(cnpjEmpresa)) {
+    if(!validarCNPJ(cnpjEmpresa) && document.getElementById('cadastroEmpresa').style.display !== 'none') {
         exibirMensagemErro(mensagemErroCnpj, 'O CNPJ está em um formato inválido ou vazio.');
         return;
     }
@@ -137,8 +131,10 @@ function cadastrar() {
             senha: senhaCadastro,
             role: "USER",
             tipoUsuario: tipoUsuario,
-            nomeEmpresa: nomeEmpresa ? '' : nomeEmpresa,
-            cnpjEmpresa: cnpjEmpresa ? '' : cnpjEmpresa
+            nomeEmpresa: nomeEmpresa,
+            cnpjEmpresa: cnpjEmpresa,
+            emailEmpresa: emailEmpresa,
+            razaoSocialEmpresa: razaoSocialEmpresa
         }),
         complete: function(xhr, status) {
             switch (xhr.status) {

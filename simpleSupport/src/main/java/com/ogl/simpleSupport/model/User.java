@@ -36,13 +36,18 @@ public class User implements UserDetails {
 
     private String tipoUsuario;
 
-    public User(String name, String email, String password, String number, UserRole role, String tipoUsuario) {
+    @ManyToOne
+    @JoinColumn(name = "empresa")
+    private Empresa empresa;
+
+    public User(String name, String email, String password, String number, UserRole role, String tipoUsuario, Empresa empresa) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.number = number;
         this.role = role;
         this.tipoUsuario = tipoUsuario;
+        this.empresa = empresa;
     }
 
     @Override

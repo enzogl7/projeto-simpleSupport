@@ -1,9 +1,7 @@
 package com.ogl.simpleSupport.controller;
 
-import com.ogl.simpleSupport.model.AuthenticationDTO;
-import com.ogl.simpleSupport.model.LoginResponseDTO;
-import com.ogl.simpleSupport.model.RegisterDTO;
-import com.ogl.simpleSupport.model.User;
+import com.ogl.simpleSupport.model.*;
+import com.ogl.simpleSupport.service.EmpresaService;
 import com.ogl.simpleSupport.service.TokenService;
 import com.ogl.simpleSupport.service.UserService;
 import jakarta.servlet.http.Cookie;
@@ -32,6 +30,9 @@ public class LoginController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private EmpresaService empresaService;
+
     @GetMapping("/login")
     public String loginPage() {
         return "login";
@@ -40,6 +41,7 @@ public class LoginController {
     @PostMapping("/cadastrar")
     public ResponseEntity cadastrar(@RequestBody RegisterDTO data) {
         try {
+            Empresa empresa = null;
             if (userService.findByEmail(data.email()) != null) {
                 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Email já cadastrado.");
             }
@@ -47,13 +49,15 @@ public class LoginController {
             if (userService.findByNumber(data.telefone()).isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Telefone já cadastrado.");
             }
+
+            if (data.nomeEmpresa() != "" && data.cnpjEmpresa() != "" && data.emailEmpresa() != "" && data.razaoSocialEmpresa() != "") {
+                Empresa empresaCriada = empresaService.save(data.nomeEmpresa(), data.cnpjEmpresa(), data.emailEmpresa(), data.razaoSocialEmpresa());
+                empresa = empresaCriada;
+            }
+
             String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
             String nomeCompleto = data.nome() + " " + data.sobrenome();
-            User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario());
-
-            if (data.nomeEmpresa() != null && data.cnpjEmpresa() != null) {
-                // TODO: salvar empresa
-            }
+            User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario(), empresa);
 
             userService.cadastrar(newUser);
             return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
