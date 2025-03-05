@@ -130,6 +130,16 @@ public class EmpresaController {
         convite.setAceito(true);
         conviteRepository.save(convite);
 
+        // ENVIO PARA RESPONSÁVEL
+        mailService.enviarEmailConfirmacaoConvite(convite.getEmpresaResponsavel().getEmailResponsavel(),
+                "Convite aceito por funcionário | SimpleSupport",
+                convite.getEmpresaResponsavel().getNome(), "emails/notificacao_convite_aceito_responsavel");
+
+        // ENVIO PARA FUNCIONÁRIO
+        mailService.enviarEmailConfirmacaoConvite(convite.getEmailFuncionario(),
+                "Convite aceito! | SimpleSupport",
+                convite.getEmpresaResponsavel().getNome(), "emails/notificacao_convite_aceito_funcionario");
+
         return "/login";
     }
 

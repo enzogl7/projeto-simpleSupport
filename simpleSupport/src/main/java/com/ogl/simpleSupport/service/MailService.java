@@ -46,4 +46,25 @@ public class MailService {
         }
     }
 
+    public void enviarEmailConfirmacaoConvite(String destinatario, String assunto, String nomeEmpresa, String template) {
+        try {
+            Context context = new Context();
+            context.setVariable("nomeEmpresa", nomeEmpresa);
+
+            String htmlContent = templateEngine.process(template, context);
+
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            helper.setFrom(remetente);
+            helper.setTo(destinatario);
+            helper.setSubject(assunto);
+            helper.setText(htmlContent, true);
+
+            javaMailSender.send(mimeMessage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
