@@ -1,0 +1,20 @@
+<div class="modal fade" id="modalConvidarFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalConvidarFuncionarioTituloCentro" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center; width: 100%;">
+                <h5 class="modal-title" id="modalConvidarFuncionarioTitulo" style="font-size: 1.5rem; font-weight: bold;">Convidar funcionário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="emailFuncionario">E-mail</label>
+                    <input class="form-control form-control-lg" type="email" id="emailFuncionario" placeholder="Insira o e-mail do funcionário">
+                    <span class="text-muted mt-0 pt-0" style="font-size: 0.8rem">*O email deve ser o mesmo da conta SimpleSupport do funcionário</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn" style="background-color: #87CEFA; color: white" onclick="convidarFuncionario()">Convidar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -49,4 +49,18 @@ public class EmpresaController {
         model.addAttribute("funcionarios", userService.findByEmpresa(empresaResponsavel));
         return "empresa/funcionarios";
     }
+
+    @PostMapping("/convidarfuncionario")
+    public ResponseEntity convidarFuncionario(@RequestParam("emailFuncionario") String emailFuncionario) {
+        try {
+            if (userService.findByEmail(emailFuncionario) == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um usuário com esse email.");
+            }
+
+            System.out.println("Funcionário convidado: " + emailFuncionario);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
