@@ -18,11 +18,21 @@ public class DashboardController {
     @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("usuario", userService.getUsuarioLogado().getName());
+        if (userService.getUsuarioLogado().getEmpresaResponsavel() != null) {
+            model.addAttribute("responsavelPorEmpresa", true);
+        } else {
+            model.addAttribute("responsavelPorEmpresa", false);
+        }
         return "dashboard/home";
     }
 
     @GetMapping("/chamados")
     public String chamados(Model model) {
         return "dashboard/chamados";
+    }
+
+    @GetMapping("/empresa")
+    public String empresa(Model model) {
+        return "dashboard/empresa";
     }
 }
