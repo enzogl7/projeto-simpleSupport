@@ -41,4 +41,8 @@ public class UserService {
     public List<User> findByEmpresa(Empresa empresa) {
         return userRepository.findByEmpresa(empresa);
     }
+
+    public void salvarEdicao(User user) {
+        userRepository.save(user);
+    }
 }

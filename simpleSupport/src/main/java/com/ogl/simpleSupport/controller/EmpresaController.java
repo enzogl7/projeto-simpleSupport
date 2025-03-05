@@ -3,6 +3,7 @@ package com.ogl.simpleSupport.controller;
 import com.ogl.simpleSupport.dto.EmpresaDTO;
 import com.ogl.simpleSupport.model.ConviteFuncionario;
 import com.ogl.simpleSupport.model.Empresa;
+import com.ogl.simpleSupport.model.User;
 import com.ogl.simpleSupport.repository.ConviteRepository;
 import com.ogl.simpleSupport.service.EmpresaService;
 import com.ogl.simpleSupport.service.MailService;
@@ -85,7 +86,7 @@ public class EmpresaController {
             conviteRepository.save(convite);
 
             String serverUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
-            String linkConvite = serverUrl + "/validar-convite?token=" + tokenConvite;
+            String linkConvite = serverUrl + "/empresa/validar-convite?token=" + tokenConvite;
 
             mailService.enviarEmailConvite(emailFuncionario, "Convite para empresa | SimpleSupport", nomeEmpresaResponsavel, linkConvite, "emails/convite_funcionario");
 
@@ -99,15 +100,37 @@ public class EmpresaController {
     @GetMapping("/validar-convite")
     public String validarConvite(@RequestParam("token") String tokenConvite, Model model) {
         ConviteFuncionario convite = conviteRepository.findByTokenConvite(tokenConvite);
-        model.addAttribute("convite", convite);
-        model.addAttribute("empresa", convite.getEmpresaResponsavel().getNome());
 
-
-        if (convite == null || convite.isAceito() || convite.getDataExpiracao().isBefore(LocalDateTime.now()) || userService.getUsuarioLogado().getEmail() != convite.getEmailFuncionario()) {
+        if (convite == null || convite.isAceito() || convite.getDataExpiracao().isBefore(LocalDateTime.now())) {
             return "/convite/erro_convite";
         }
 
+        if (!userService.getUsuarioLogado().getEmail().equals(convite.getEmailFuncionario())) {
+            return "/convite/erro_convite";
+        }
+
+        model.addAttribute("convite", convite);
+        model.addAttribute("empresa", convite.getEmpresaResponsavel().getNome());
+
         return "/convite/aceitar_convite";
+    }
+
+    @PostMapping("/aceitar-convite")
+    public String aceitarConvite(@RequestParam("token") String token) {
+        ConviteFuncionario convite = conviteRepository.findByTokenConvite(token);
+
+        if (convite == null || convite.isAceito() || convite.getDataExpiracao().isBefore(LocalDateTime.now())) {
+            return "/convite/erro_convite";
+        }
+
+        User novoUsuario = (User) userService.findByEmail(convite.getEmailFuncionario());
+        novoUsuario.setEmpresa(convite.getEmpresaResponsavel());
+        userService.salvarEdicao(novoUsuario);
+
+        convite.setAceito(true);
+        conviteRepository.save(convite);
+
+        return "/login";
     }
 
 
