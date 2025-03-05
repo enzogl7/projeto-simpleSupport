@@ -33,7 +33,7 @@
                     <input type="radio" id="usuario" name="tipoUsuario" value="usuario">
                     <label for="usuario">Usuário</label>
                     <input type="radio" id="empresa" name="tipoUsuario" value="empresa">
-                    <label for="empresa">Empresa</label>
+                    <label for="empresa">Empresa/funcionário</label>
 
                     <div id="checkEmpresaExistente" class="mt-1" style="display: none">
                         <label class="mb-1"><strong>Empresa já cadastrada:</strong></label><br>
@@ -61,6 +61,10 @@
                         <label for="emailResponsavelEmpresa">Email do responsável*</label>
                         <input class="form-control form-control-lg mb-3" type="email" id="emailResponsavelEmpresa" placeholder="Insira o email do responsável pela empresa">
                         <div id="mensagemErroCnpj" class="mensagem-escondida text-center"></div>
+                    </div>
+
+                    <div id="conviteEmpresa" class="mt-2" style="display: none">
+                        <span style="font-size: 0.9rem">Prossiga com a criação de sua conta e então peça para que o responsável pela empresa te convide através da seção: Gerenciar empresa > gerenciar funcionários > convidar funcionário.</span>
                     </div>
 
                 </div>

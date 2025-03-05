@@ -11,24 +11,24 @@ document.getElementById('telefoneCadastro').addEventListener('input', function (
 });
 
 document.getElementById('empresaCadastrada').addEventListener('change', function() {
-    // Oculta o campo de cadastro da empresa se a empresa for cadastrada
     document.getElementById('cadastroEmpresa').style.display = 'none';
+    document.getElementById('conviteEmpresa').style.display = 'block';
+
 });
 
 document.getElementById('empresaNaoCadastrada').addEventListener('change', function() {
-    // Exibe o campo de cadastro da empresa se a empresa não for cadastrada
     document.getElementById('cadastroEmpresa').style.display = 'block';
+    document.getElementById('conviteEmpresa').style.display = 'none';
 });
 
-// Mostra o campo de "empresa já cadastrada" quando o tipo de usuário for "empresa"
 document.getElementById('empresa').addEventListener('change', function() {
     document.getElementById('checkEmpresaExistente').style.display = 'block';
 });
 
-// Oculta o campo de "empresa já cadastrada" quando o tipo de usuário for "usuário"
 document.getElementById('usuario').addEventListener('change', function() {
     document.getElementById('checkEmpresaExistente').style.display = 'none';
-    document.getElementById('cadastroEmpresa').style.display = 'none'; // Esconde também se estiver visível
+    document.getElementById('cadastroEmpresa').style.display = 'none';
+    document.getElementById('conviteEmpresa').style.display = 'none';
 });
 
 document.getElementById('cnpjEmpresa').addEventListener('input', function() {
