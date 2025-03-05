@@ -1,5 +1,7 @@
 package com.ogl.simpleSupport.controller;
 
+import com.ogl.simpleSupport.dto.AuthenticationDTO;
+import com.ogl.simpleSupport.dto.RegisterDTO;
 import com.ogl.simpleSupport.model.*;
 import com.ogl.simpleSupport.service.EmpresaService;
 import com.ogl.simpleSupport.service.TokenService;
@@ -16,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {

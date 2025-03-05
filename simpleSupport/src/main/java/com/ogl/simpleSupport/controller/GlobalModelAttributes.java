@@ -21,10 +21,12 @@ public class GlobalModelAttributes {
         } else {
             model.addAttribute("nomeEmpresaNavbar", "");
         }
-        if (userService.getUsuarioLogado().getEmpresaResponsavel() != null) {
-            model.addAttribute("responsavelPorEmpresaNavbar", true);
-        } else {
-            model.addAttribute("responsavelPorEmpresaNavbar", false);
+        if (userService.getUsuarioLogado() != null) {
+            if (userService.getUsuarioLogado().getEmpresaResponsavel() != null) {
+                model.addAttribute("responsavelPorEmpresa", true);
+            } else {
+                model.addAttribute("responsavelPorEmpresa", false);
+            }
         }
     }
 }

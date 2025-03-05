@@ -20,4 +20,12 @@ public class EmpresaService {
         empresaRepository.save(empresa);
         return empresa;
     }
+
+    public Empresa findById(long id) {
+        return empresaRepository.findById(id).get();
+    }
+
+    public void salvarEdicao(Empresa empresa) {
+        empresaRepository.save(empresa);
+    }
 }

@@ -1,15 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="~{fragments/links :: headContent('')}"></head>
-
-    <title>Gerenciar Empresa | SimpleSupport</title>
+<title>Gerenciar Empresa | SimpleSupport</title>
 
 <body class="pt-5">
 <div th:replace="~{fragments/navbar :: navbar}" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"></div>
 
-  <h1>EMPRESAS</h1>
+<div class="container mt-5 pt-5">
 
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Opções de Gerenciamento</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong>Nome da Empresa:</strong> <span th:text="${empresa.nome}">Nome Exemplo</span>
+                    </div>
 
-<footer th:replace="~{fragments/scripts :: scriptsContent('')}"></footer>
+                    <div class="mb-3">
+                        <strong>Email de Contato:</strong> <span th:text="${empresa.emailEmpresa}">email@empresa.com</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>Razão Social:</strong> <span th:text="${empresa.razaoSocial}">Razão Social Exemplo</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong>CNPJ:</strong> <span th:text="${empresa.cnpj}">00.000.000/0000-00</span>
+                    </div>
+
+                    <div class="list-group">
+                        <button onclick="modalEmpresa()" class="list-group-item list-group-item-action">
+                            <i class="bi bi-pencil-square" style="padding-right: 7px"></i>Editar Informações da Empresa
+                        </button>
+                        <a href="/dashboard/empresa/funcionarios" class="list-group-item list-group-item-action">
+                            <i class="bi bi-person-lines-fill" style="padding-right: 7px"></i>Gerenciar Funcionários
+                        </a>
+                        <a href="/dashboard/empresa/documentos" class="list-group-item list-group-item-action">
+                            <i class="bi bi-file-earmark-text" style="padding-right: 7px"></i>Documentos da Empresa
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/modais/modal_empresa"></div>
+<footer th:replace="~{fragments/scripts :: scriptsContent('/assets/js/empresa.js')}"></footer>
 </body>
 </html>

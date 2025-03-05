@@ -1,6 +1,5 @@
 package com.ogl.simpleSupport.service;
 
-import com.ogl.simpleSupport.model.RegisterDTO;
 import com.ogl.simpleSupport.model.User;
 import com.ogl.simpleSupport.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

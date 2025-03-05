@@ -18,11 +18,6 @@ public class DashboardController {
     @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("usuario", userService.getUsuarioLogado().getName());
-        if (userService.getUsuarioLogado().getEmpresaResponsavel() != null) {
-            model.addAttribute("responsavelPorEmpresa", true);
-        } else {
-            model.addAttribute("responsavelPorEmpresa", false);
-        }
         return "dashboard/home";
     }
 
@@ -33,6 +28,7 @@ public class DashboardController {
 
     @GetMapping("/empresa")
     public String empresa(Model model) {
+        model.addAttribute("empresa", userService.getUsuarioLogado().getEmpresaResponsavel());
         return "dashboard/empresa";
     }
 }

@@ -1,4 +1,4 @@
-package com.ogl.simpleSupport.model;
+package com.ogl.simpleSupport.dto;
 
 public record AuthenticationDTO(String email, String password) {
 }

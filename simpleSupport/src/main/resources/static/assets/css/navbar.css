@@ -103,6 +103,7 @@ nav.open .sidebar {
     pointer-events: none;
     transition: all 0.3s ease;
     background: rgba(0, 0, 0, 0.3);
+    z-index: 1050 !important;
 }
 
 nav.open ~ .overlay {

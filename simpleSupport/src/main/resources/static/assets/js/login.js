@@ -45,17 +45,6 @@ function validarSenha(senha) {
     return regexSenha.test(senha);
 }
 
-function formatCNPJ(cnpj) {
-    cnpj = cnpj.replace(/\D/g, '');
-    cnpj = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-    return cnpj;
-}
-
-function validarCNPJ(cnpj) {
-    var regex = /^(\d{2})\.(\d{3})\.(\d{3})\/(\d{4})-(\d{2})$/;
-    return regex.test(cnpj);
-}
-
 function verificarCamposEmpresa() {
     var nomeEmpresa = document.getElementById('nomeEmpresa').value;
     var cnpjEmpresa = document.getElementById('cnpjEmpresa').value;
