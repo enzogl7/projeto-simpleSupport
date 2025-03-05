@@ -3,6 +3,7 @@ package com.ogl.simpleSupport.controller;
 import com.ogl.simpleSupport.dto.EmpresaDTO;
 import com.ogl.simpleSupport.model.Empresa;
 import com.ogl.simpleSupport.service.EmpresaService;
+import com.ogl.simpleSupport.service.MailService;
 import com.ogl.simpleSupport.service.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class EmpresaController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MailService mailService;
 
     @PostMapping("/salvaredicao")
     public ResponseEntity salvarEdicaoEmpresa(@RequestBody EmpresaDTO data) {
@@ -56,6 +60,9 @@ public class EmpresaController {
             if (userService.findByEmail(emailFuncionario) == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe um usuário com esse email.");
             }
+
+            mailService.enviarEmail(emailFuncionario, "Convite para empresa | SimpleSupport", "", "emails/convite_funcionario");
+
 
             System.out.println("Funcionário convidado: " + emailFuncionario);
             return ResponseEntity.ok().build();
