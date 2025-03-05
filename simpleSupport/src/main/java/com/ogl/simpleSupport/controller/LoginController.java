@@ -51,6 +51,10 @@ public class LoginController {
             String nomeCompleto = data.nome() + " " + data.sobrenome();
             User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario());
 
+            if (data.nomeEmpresa() != null && data.cnpjEmpresa() != null) {
+                // TODO: salvar empresa
+            }
+
             userService.cadastrar(newUser);
             return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
         } catch (Exception e) {

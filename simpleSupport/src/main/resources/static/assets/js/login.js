@@ -10,6 +10,32 @@ document.getElementById('telefoneCadastro').addEventListener('input', function (
     e.target.value = telefone;
 });
 
+document.getElementById('empresaCadastrada').addEventListener('change', function() {
+    // Oculta o campo de cadastro da empresa se a empresa for cadastrada
+    document.getElementById('cadastroEmpresa').style.display = 'none';
+});
+
+document.getElementById('empresaNaoCadastrada').addEventListener('change', function() {
+    // Exibe o campo de cadastro da empresa se a empresa não for cadastrada
+    document.getElementById('cadastroEmpresa').style.display = 'block';
+});
+
+// Mostra o campo de "empresa já cadastrada" quando o tipo de usuário for "empresa"
+document.getElementById('empresa').addEventListener('change', function() {
+    document.getElementById('checkEmpresaExistente').style.display = 'block';
+});
+
+// Oculta o campo de "empresa já cadastrada" quando o tipo de usuário for "usuário"
+document.getElementById('usuario').addEventListener('change', function() {
+    document.getElementById('checkEmpresaExistente').style.display = 'none';
+    document.getElementById('cadastroEmpresa').style.display = 'none'; // Esconde também se estiver visível
+});
+
+document.getElementById('cnpjEmpresa').addEventListener('input', function() {
+    var cnpj = this.value;
+    this.value = formatCNPJ(cnpj);
+});
+
 function modalCadastro() {
     $('#modalCadastro').modal('show');
 }
@@ -17,6 +43,47 @@ function modalCadastro() {
 function validarSenha(senha) {
     var regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regexSenha.test(senha);
+}
+
+function formatCNPJ(cnpj) {
+    cnpj = cnpj.replace(/\D/g, '');
+    cnpj = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+    return cnpj;
+}
+
+function validarCNPJ(cnpj) {
+    var regex = /^(\d{2})\.(\d{3})\.(\d{3})\/(\d{4})-(\d{2})$/;
+    return regex.test(cnpj);
+}
+
+function verificarCamposEmpresa() {
+    var nomeEmpresa = document.getElementById('nomeEmpresa').value;
+    var cnpjEmpresa = document.getElementById('cnpjEmpresa').value;
+
+    if (document.getElementById('cadastroEmpresa').style.display !== 'none') {
+        if (nomeEmpresa.trim() === "") {
+            Swal.fire({
+                title: "Ops!",
+                text: "Preencha o nome da empresa.",
+                icon: "warning",
+                confirmButtonText: 'OK'
+            })
+            return false;
+        }
+
+        if (cnpjEmpresa.trim() === "") {
+            Swal.fire({
+                title: "Ops!",
+                text: "Preencha o CNPJ da empresa.",
+                icon: "warning",
+                confirmButtonText: 'OK'
+            })
+            return false;
+        }
+
+    }
+
+    return true;
 }
 
 function cadastrar() {
@@ -31,6 +98,8 @@ function cadastrar() {
     } else if (document.getElementById('empresa').checked) {
         tipoUsuario = 'empresa';
     }
+    var nomeEmpresa = document.getElementById('nomeEmpresa').value;
+    var cnpjEmpresa = document.getElementById('cnpjEmpresa').value;
 
     if (!nomeCadastro || !sobrenomeCadastro || !emailCadastro || !telefoneCadastro || !senhaCadastro || !tipoUsuario) {
         Swal.fire({
@@ -43,7 +112,16 @@ function cadastrar() {
     }
 
     if(!validarSenha(senhaCadastro)) {
-        exibirMensagemErro(mensagemErro, 'A senha deve ter no mínimo 8 caracteres, incluindo maiúsculas, minúsculas, números e caracteres especiais.');
+        exibirMensagemErro(mensagemErroSenha, 'A senha deve ter no mínimo 8 caracteres, incluindo maiúsculas, minúsculas, números e caracteres especiais.');
+        return;
+    }
+
+    if(!validarCNPJ(cnpjEmpresa)) {
+        exibirMensagemErro(mensagemErroCnpj, 'O CNPJ está em um formato inválido ou vazio.');
+        return;
+    }
+
+    if(!verificarCamposEmpresa()) {
         return;
     }
 
@@ -58,7 +136,9 @@ function cadastrar() {
             telefone: telefoneCadastro,
             senha: senhaCadastro,
             role: "USER",
-            tipoUsuario: tipoUsuario
+            tipoUsuario: tipoUsuario,
+            nomeEmpresa: nomeEmpresa ? '' : nomeEmpresa,
+            cnpjEmpresa: cnpjEmpresa ? '' : cnpjEmpresa
         }),
         complete: function(xhr, status) {
             switch (xhr.status) {
