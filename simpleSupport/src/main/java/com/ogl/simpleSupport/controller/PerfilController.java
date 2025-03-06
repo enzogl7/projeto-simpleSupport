@@ -26,8 +26,8 @@ public class PerfilController {
         try {
             User user = userService.findById(Integer.valueOf(data.idUsuario()));
 
-            if (isNotEmpty(data.nome()) && isNotEmpty(data.sobrenome())) {
-                user.setName(data.nome() + " " + data.sobrenome());
+            if (isNotEmpty(data.nomeCompleto())) {
+                user.setName(data.nomeCompleto());
             }
 
             if (isNotEmpty(data.email())) {

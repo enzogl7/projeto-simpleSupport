@@ -17,11 +17,10 @@ function modalAlterarInformacoes() {
 function editarPerfil() {
     var idUsuario = document.getElementById('idUsuario').value;
     var edicaoNomeUsuario = document.getElementById('edicaoNomeUsuario').value;
-    var edicaoSobrenomeUsuario = document.getElementById('edicaoSobrenomeUsuario').value;
     var edicaoEmailUsuario = document.getElementById('edicaoEmailUsuario').value;
     var edicaoTelefoneUsuario = document.getElementById('edicaoTelefoneUsuario').value;
 
-    if (!edicaoNomeUsuario && !edicaoSobrenomeUsuario && !edicaoEmailUsuario && !edicaoTelefoneUsuario) {
+    if (!edicaoNomeUsuario && !edicaoEmailUsuario && !edicaoTelefoneUsuario) {
         Swal.fire({
             title: "Ops!",
             text: "Pelo menos um campo deve ser preenchido!",
@@ -37,8 +36,7 @@ function editarPerfil() {
         contentType: 'application/json',
         data: JSON.stringify({
             idUsuario: idUsuario,
-            nome: edicaoNomeUsuario,
-            sobrenome: edicaoSobrenomeUsuario,
+            nomeCompleto: edicaoNomeUsuario,
             email: edicaoEmailUsuario,
             telefone: edicaoTelefoneUsuario
         }),
