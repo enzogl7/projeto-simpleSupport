@@ -4,6 +4,7 @@ import com.ogl.simpleSupport.dto.AuthenticationDTO;
 import com.ogl.simpleSupport.dto.RegisterDTO;
 import com.ogl.simpleSupport.model.*;
 import com.ogl.simpleSupport.service.EmpresaService;
+import com.ogl.simpleSupport.service.MailService;
 import com.ogl.simpleSupport.service.TokenService;
 import com.ogl.simpleSupport.service.UserService;
 import jakarta.servlet.http.Cookie;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Controller
 public class LoginController {
 
@@ -33,6 +37,8 @@ public class LoginController {
 
     @Autowired
     private EmpresaService empresaService;
+    @Autowired
+    private MailService mailService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -71,6 +77,9 @@ public class LoginController {
             String nomeCompleto = data.nome() + " " + data.sobrenome();
             User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario(), empresa);
             userService.cadastrar(newUser);
+
+            mailService.enviarEmailRegistroEmpresa(data.emailEmpresa(), "Empresa registrada no sistema | SimpleSupport",
+                    data.nomeEmpresa(), data.cnpjEmpresa(), LocalDateTime.now(), "emails/notificacao_empresa");
             return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao cadastrar usuário.");

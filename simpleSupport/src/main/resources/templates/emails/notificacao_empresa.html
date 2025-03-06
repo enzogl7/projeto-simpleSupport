@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Empresa</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f9f9f9; padding: 20px;">
+<div style="max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <h2>Bem-vindo ao SimpleSupport!</h2>
+    <p>Olá, <strong th:text="${nomeEmpresa}"></strong>,</p>
+
+    <p>Temos o prazer de informar que sua empresa foi registrada com sucesso no sistema SimpleSupport.</p>
+
+    <p><strong>Detalhes do Registro:</strong></p>
+    <ul>
+        <li><strong>Nome da Empresa:</strong> <span th:text="${nomeEmpresa}"></span></li>
+        <li><strong>CNPJ:</strong> <span th:text="${cnpj}"></span></li>
+        <li><strong>Data do Registro:</strong> <span th:text="${dataRegistro}"></span></li>
+    </ul>
+
+    <p>A partir de agora, você pode gerenciar convites, funcionários, chamados e acompanhar tudo pelo nosso sistema.</p>
+
+
+    <p>Se precisar de ajuda ou suporte, entre em contato com a nossa equipe.</p>
+
+    <p>Atenciosamente, <br> <strong>Equipe SimpleSupport</strong></p>
+</div>
+</body>
+</html>
