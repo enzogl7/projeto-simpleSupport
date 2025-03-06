@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -37,6 +38,7 @@ public class LoginController {
 
     @Autowired
     private EmpresaService empresaService;
+
     @Autowired
     private MailService mailService;
 
@@ -48,7 +50,10 @@ public class LoginController {
     @PostMapping("/cadastrar")
     public ResponseEntity cadastrar(@RequestBody RegisterDTO data) {
         try {
-            Empresa empresa = null;
+            Empresa empresaCriada = null;
+            Optional<Empresa> empresaUsuario = userService.findEmpresaByEmail(data.emailResponsavelEmpresa()); // usado para verificar se a empresa do usuário é igual a que ele será setado como responsável
+
+            // INICIO EXCEÇÕES
             if (userService.findByEmail(data.email()) != null) {
                 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Email já cadastrado.");
             }
@@ -64,25 +69,37 @@ public class LoginController {
             if (data.emailResponsavelEmpresa() != "" && !empresaService.findByEmailResponsavel(data.emailResponsavelEmpresa()).isEmpty()) {
                 return ResponseEntity.status(HttpStatus.IM_USED).body("O usuário com o email informado já é responsável por uma empresa.");
             }
+            // FIM EXCEÇÕES
 
             // criação de empresa
             if (data.nomeEmpresa() != "" && data.cnpjEmpresa() != "" && data.emailEmpresa() != "" && data.razaoSocialEmpresa() != "" && data.emailResponsavelEmpresa() != "") {
-                Empresa empresaCriada = empresaService.save(data.nomeEmpresa(), data.cnpjEmpresa(), data.emailEmpresa(), data.razaoSocialEmpresa(), data.emailResponsavelEmpresa());
+                empresaCriada = new Empresa(data.nomeEmpresa(), data.cnpjEmpresa(), data.emailEmpresa(), data.razaoSocialEmpresa(), data.emailResponsavelEmpresa());
+
+
+                if (empresaUsuario.isPresent() && !empresaCriada.getCnpj().equals(empresaUsuario.get().getCnpj())) {
+                    return ResponseEntity.status(HttpStatus.FOUND).body("A empresa do usuário com o email informado é diferente.");
+                }
+
                 User usuarioResponsavel = (User) userService.findByEmail(data.emailResponsavelEmpresa());
+                if (usuarioResponsavel.getEmpresa() == null) {
+                    usuarioResponsavel.setEmpresa(empresaCriada);
+                }
                 usuarioResponsavel.setEmpresaResponsavel(empresaCriada);
-                empresa = empresaCriada;
+                empresaService.save(empresaCriada);
+                mailService.enviarEmailRegistroEmpresa(data.emailEmpresa(), "Empresa registrada no sistema | SimpleSupport",
+                        data.nomeEmpresa(), data.cnpjEmpresa(), LocalDate.now(), "emails/notificacao_empresa");
             }
 
+            // criação usuário padrão
             String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
             String nomeCompleto = data.nome() + " " + data.sobrenome();
-            User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario(), empresa);
+            User newUser = new User(nomeCompleto, data.email(), encryptedPassword, data.telefone(), data.role(), data.tipoUsuario(), empresaCriada);
             userService.cadastrar(newUser);
 
-            mailService.enviarEmailRegistroEmpresa(data.emailEmpresa(), "Empresa registrada no sistema | SimpleSupport",
-                    data.nomeEmpresa(), data.cnpjEmpresa(), LocalDate.now(), "emails/notificacao_empresa");
             return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao cadastrar usuário.");
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Erro ao cadastrar usuário.");
         }
     }
 

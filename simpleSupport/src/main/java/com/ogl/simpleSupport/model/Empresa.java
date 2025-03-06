@@ -23,4 +23,12 @@ public class Empresa {
     private String emailEmpresa;
     private String razaoSocial;
     private String emailResponsavel;
+
+    public Empresa(String nome, String cnpj, String emailEmpresa, String razaoSocial, String emailResponsavel) {
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.emailEmpresa = emailEmpresa;
+        this.razaoSocial = razaoSocial;
+        this.emailResponsavel = emailResponsavel;
+    }
 }

@@ -29,6 +29,10 @@ document.getElementById('usuario').addEventListener('change', function() {
     document.getElementById('checkEmpresaExistente').style.display = 'none';
     document.getElementById('cadastroEmpresa').style.display = 'none';
     document.getElementById('conviteEmpresa').style.display = 'none';
+    const inputsEmpresa = document.querySelectorAll('#cadastroEmpresa input');
+    inputsEmpresa.forEach(input => {
+        input.value = '';
+    });
 });
 
 document.getElementById('cnpjEmpresa').addEventListener('input', function() {
@@ -110,6 +114,15 @@ function cadastrar() {
         return;
     }
 
+    Swal.fire({
+        title: "",
+        text: "Só um momento...",
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
     $.ajax({
         url: '/cadastrar',
         type: 'POST',
@@ -159,6 +172,14 @@ function cadastrar() {
                     Swal.fire({
                         title: "Ops!",
                         text: "O usuário com o email informado já é responsável por uma empresa.",
+                        icon: "warning",
+                        confirmButtonText: "OK"
+                    })
+                    break;
+                case 302:
+                    Swal.fire({
+                        title: "Ops!",
+                        text: "A empresa do usuário com o email informado para responsável é diferente.",
                         icon: "warning",
                         confirmButtonText: "OK"
                     })

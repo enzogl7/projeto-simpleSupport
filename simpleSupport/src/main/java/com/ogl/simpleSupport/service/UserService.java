@@ -49,4 +49,9 @@ public class UserService {
     public User findById(Integer id) {
         return userRepository.findById(id).get();
     }
+
+    public Optional<Empresa> findEmpresaByEmail(String email) {
+        return userRepository.findEmpresaByEmail(email);
+    }
+
 }
