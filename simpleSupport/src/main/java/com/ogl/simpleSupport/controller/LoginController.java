@@ -79,7 +79,7 @@ public class LoginController {
             userService.cadastrar(newUser);
 
             mailService.enviarEmailRegistroEmpresa(data.emailEmpresa(), "Empresa registrada no sistema | SimpleSupport",
-                    data.nomeEmpresa(), data.cnpjEmpresa(), LocalDateTime.now(), "emails/notificacao_empresa");
+                    data.nomeEmpresa(), data.cnpjEmpresa(), LocalDate.now(), "emails/notificacao_empresa");
             return ResponseEntity.ok().body("Usuario cadastrado com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao cadastrar usuário.");

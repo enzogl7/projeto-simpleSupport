@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class MailService {
@@ -89,12 +90,13 @@ public class MailService {
         }
     }
 
-    public void enviarEmailRegistroEmpresa(String destinatario, String assunto, String nomeEmpresa, String cnpj, LocalDateTime dataRegistro, String template) {
+    public void enviarEmailRegistroEmpresa(String destinatario, String assunto, String nomeEmpresa, String cnpj, LocalDate dataRegistro, String template) {
         try {
             Context context = new Context();
             context.setVariable("nomeEmpresa", nomeEmpresa);
             context.setVariable("cnpj", cnpj);
-            context.setVariable("dataRegistro", dataRegistro);
+            String dataFormatada = dataRegistro.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            context.setVariable("dataRegistro", dataFormatada);
 
 
             String htmlContent = templateEngine.process(template, context);
