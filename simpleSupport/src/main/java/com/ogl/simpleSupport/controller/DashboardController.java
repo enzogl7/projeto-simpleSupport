@@ -31,4 +31,15 @@ public class DashboardController {
         model.addAttribute("empresa", userService.getUsuarioLogado().getEmpresaResponsavel());
         return "dashboard/empresa";
     }
+
+    @GetMapping("/perfil")
+    public String perfil(Model model) {
+        model.addAttribute("perfil", userService.getUsuarioLogado());
+        if (userService.getUsuarioLogado().getEmpresa() != null) {
+            model.addAttribute("empresa", userService.getUsuarioLogado().getEmpresa().getNome());
+        } else {
+            model.addAttribute("empresa", "---");
+        }
+        return "dashboard/perfil";
+    }
 }

@@ -63,6 +63,7 @@ public class EmpresaController {
                 ? userService.getUsuarioLogado().getEmpresaResponsavel()
                 : null;
         model.addAttribute("funcionarios", userService.findByEmpresa(empresaResponsavel));
+        model.addAttribute("emailLogado", userService.getUsuarioLogado().getEmail());
         return "empresa/funcionarios";
     }
 
