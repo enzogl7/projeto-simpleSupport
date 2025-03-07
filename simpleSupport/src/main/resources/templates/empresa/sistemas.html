@@ -46,8 +46,10 @@
           <th class="col-sm-1 text-center">ID</th>
           <th class="col-sm-1 text-center">Nome</th>
           <th class="col-sm-2 text-center">Descrição</th>
+          <th class="col-sm-1 text-center">Categoria</th>
           <th class="col-sm-1 text-center">Versão</th>
           <th class="col-sm-2 text-center">Data de criação</th>
+          <th class="col-sm-2 text-center">Ativo</th>
           <th class="col-sm-1 text-center">Ações</th>
         </tr>
         </thead>
@@ -56,8 +58,13 @@
           <td class="col-sm-1 text-center" th:text="${sistema.id}"></td>
           <td class="col-sm-1 text-center" th:text="${sistema.nome}"></td>
           <td class="col-sm-2 text-center" th:text="${sistema.descricao}"></td>
+          <td class="col-sm-1 text-center" th:text="${sistema.categoria != '' ? sistema.categoria : '---'}"></td>
           <td class="col-sm-1 text-center" th:text="${sistema.versao}"></td>
           <td class="col-sm-2 text-center" th:text="${#temporals.format(sistema.createdAt, 'dd/MM/yyyy HH:mm:ss')}"></td>
+          <td class="col-sm-1 text-center">
+            <span th:if="${sistema.ativo}" class="badge text-bg-success">✔️</span>
+            <span th:unless="${sistema.ativo}" class="badge text-bg-danger">❌</span>
+          </td>
           <td class="col-sm-1 text-center">
             <button th:data-id="${sistema.id}" class="btn btn-warning btn-sm" onclick="editarSistema(this)">Editar</button>
             <button th:data-id="${sistema.id}" class="btn btn-danger btn-sm" onclick="removerSistema(this)">Remover</button>

@@ -2,6 +2,36 @@ $(document).ready(function () {
     paginacaoTabela('tabelaSistemas')
 });
 
+document.getElementById("pesquisaNomeSistema").addEventListener("keyup", filtrarTabela);
+document.getElementById("pesquisaVersaoSistema").addEventListener("keyup", filtrarTabela);
+document.getElementById("selectSistemaAtivo").addEventListener("change", filtrarTabela);
+
+function filtrarTabela() {
+    var nomeFilter = document.getElementById("pesquisaNomeSistema").value.toLowerCase();
+    var versaoFilter = document.getElementById("pesquisaVersaoSistema").value.toLowerCase();
+    var ativoFilter = document.getElementById("selectSistemaAtivo").value.toLowerCase();
+
+    var table = document.querySelector(".table");
+    var rows = table.querySelectorAll("tbody tr");
+
+    rows.forEach(function(row) {
+        var nome = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+        var versao = row.querySelector("td:nth-child(4)").textContent.toLowerCase();
+        var ativo = row.querySelector("td:nth-child(6)").textContent.toLowerCase();
+
+        var nomeMatch = nome.indexOf(nomeFilter) > -1 || nomeFilter === "";
+        var versaoMatch = versao.indexOf(versaoFilter) > -1 || versaoFilter === "";
+        var ativoMatch = ativo.indexOf(ativoFilter) > -1 || ativoFilter === "";
+
+
+        if (nomeMatch && versaoMatch && ativoMatch) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+
 function modalNovoSistema() {
     $('#modalNovoSistema').modal('show');
 }
@@ -58,6 +88,55 @@ function novoSistema() {
                 default:
                     alert("Erro desconhecido: " + status);
             }
+        }
+    });
+}
+
+function removerSistema(button) {
+    var idSistema = button.getAttribute('data-id');
+    Swal.fire({
+        title: 'Tem certeza que deseja remover este sistema?',
+        text: "Essa ação é irreversível!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, remover.',
+        cancelButtonText: 'Não, voltar.',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deletarSistema(idSistema);
+        } else {
+            Swal.fire('Cancelado', 'O sistema não foi removido', 'info');
+        }
+    });
+}
+
+function deletarSistema(idSistema) {
+    $.ajax({
+        url: '/empresa/removersistema',
+        type: 'POST',
+        data: {
+            idSistema: idSistema
+        },
+        success: function (response) {
+            Swal.fire({
+                title: "Pronto!",
+                text: "Sistema removido com sucesso.",
+                icon: "success",
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                title: "Ops!",
+                text: "Erro ao remover sistema",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
         }
     });
 }

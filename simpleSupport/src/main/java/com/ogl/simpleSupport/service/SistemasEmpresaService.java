@@ -23,4 +23,12 @@ public class SistemasEmpresaService {
     public void salvar(SistemasEmpresa empresa) {
         sistemasEmpresaRepository.save(empresa);
     }
+
+    public SistemasEmpresa findById(Long id) {
+        return sistemasEmpresaRepository.findById(id).get();
+    }
+
+    public void removerSistema(SistemasEmpresa sistema) {
+        sistemasEmpresaRepository.delete(sistema);
+    }
 }

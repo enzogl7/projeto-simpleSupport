@@ -186,4 +186,15 @@ public class EmpresaController {
         }
     }
 
+    @PostMapping("/removersistema")
+    public ResponseEntity removerSistema(@RequestParam("idSistema")String idSistema) {
+        try {
+            SistemasEmpresa sistema = sistemasEmpresaService.findById(Long.valueOf(idSistema));
+            sistemasEmpresaService.removerSistema(sistema);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
 }
