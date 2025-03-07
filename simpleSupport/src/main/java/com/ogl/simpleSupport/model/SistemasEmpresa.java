@@ -29,5 +29,6 @@ public class SistemasEmpresa {
     private String versao;
     private String categoria;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

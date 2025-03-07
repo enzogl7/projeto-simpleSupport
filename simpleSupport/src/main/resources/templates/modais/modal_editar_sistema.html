@@ -1,0 +1,40 @@
+<div class="modal fade" id="modalEditarSistema" tabindex="-1" role="dialog" aria-labelledby="modalEditarSistemaTituloCentro" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center; width: 100%;">
+                <h5 class="modal-title" id="modalEditarSistemaTitulo" style="font-size: 1.4rem; font-weight: bold;">Editar sistema</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" id="idSistemaEdicao" name="idSistemaEdicao">
+
+                    <label for="nomeSistemaEdicao">Nome</label>
+                    <input class="form-control form-control-lg mb-3" type="text" id="nomeSistemaEdicao" placeholder="Insira o nome do sistema" required>
+
+                    <label for="descricaoSistemaEdicao">Descrição</label>
+                    <input class="form-control form-control-lg mb-3" type="email" id="descricaoSistemaEdicao" placeholder="Ex.: Gestão de estoque, controle de finanças" required>
+
+                    <label for="versaoSistemaEdicao">Versão</label>
+                    <input class="form-control form-control-lg mb-3" type="text" id="versaoSistemaEdicao" placeholder="Ex.: versão 1.0, versão alpha, versão 7.8.1_x" maxlength="20" required>
+
+                    <label for="categoriaSistemaEdicao">Categoria</label>
+                    <input class="form-control form-control-lg mb-3" type="text" id="categoriaSistemaEdicao" placeholder="Insira a categoria do sistema">
+
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="checkSistemaAtivoEdicao" checked>
+                        <label class="form-check-label" for="checkSistemaAtivoEdicao">Ativo*</label>
+                    </div>
+
+                    <div class="mt-2">
+                        <span class="text-muted" style="font-size: 0.8rem">Caso mantenha algum campo vazio, o mesmo seguirá sem nenhuma alteração.</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn" style="background-color: #87CEFA; color: white" onclick="editarSistema()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>

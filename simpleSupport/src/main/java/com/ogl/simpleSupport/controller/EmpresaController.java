@@ -1,5 +1,6 @@
 package com.ogl.simpleSupport.controller;
 
+import com.ogl.simpleSupport.dto.EdicaoSistemaDTO;
 import com.ogl.simpleSupport.dto.EmpresaDTO;
 import com.ogl.simpleSupport.dto.SistemaDTO;
 import com.ogl.simpleSupport.model.ConviteFuncionario;
@@ -43,6 +44,10 @@ public class EmpresaController {
 
     @Autowired
     private SistemasEmpresaService sistemasEmpresaService;
+
+    private boolean isNotEmpty(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
 
     @PostMapping("/salvaredicao")
     public ResponseEntity salvarEdicaoEmpresa(@RequestBody EmpresaDTO data) {
@@ -191,6 +196,37 @@ public class EmpresaController {
         try {
             SistemasEmpresa sistema = sistemasEmpresaService.findById(Long.valueOf(idSistema));
             sistemasEmpresaService.removerSistema(sistema);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @PostMapping("/editarsistema")
+    public ResponseEntity editarSistema(@RequestBody EdicaoSistemaDTO edicaoSistema) {
+        try {
+            SistemasEmpresa sistema = sistemasEmpresaService.findById(Long.valueOf(edicaoSistema.idSistema()));
+
+            if (isNotEmpty(edicaoSistema.nome())) {
+                sistema.setNome(edicaoSistema.nome());
+            }
+
+            if(isNotEmpty(edicaoSistema.descricao())) {
+               sistema.setDescricao(edicaoSistema.descricao());
+            }
+
+            if (isNotEmpty(edicaoSistema.versao())) {
+                sistema.setVersao(edicaoSistema.versao());
+            }
+
+            if (isNotEmpty(edicaoSistema.categoria())) {
+                sistema.setCategoria(edicaoSistema.categoria());
+            }
+
+            sistema.setAtivo(edicaoSistema.ativo());
+            sistema.setUpdatedAt(LocalDateTime.now());
+            sistemasEmpresaService.salvar(sistema);
+
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();

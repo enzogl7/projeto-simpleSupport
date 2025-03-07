@@ -140,3 +140,59 @@ function deletarSistema(idSistema) {
         }
     });
 }
+
+function modalEditarSistema(button) {
+    var idSistemaEdicao = button.getAttribute('data-id');
+    $('#modalEditarSistema').modal('show');
+    document.getElementById('idSistemaEdicao').value = idSistemaEdicao;
+}
+
+function editarSistema() {
+    var idSistemaEdicao = document.getElementById('idSistemaEdicao').value;
+    var nomeSistemaEdicao = document.getElementById('nomeSistemaEdicao').value;
+    var descricaoSistemaEdicao = document.getElementById('descricaoSistemaEdicao').value;
+    var versaoSistemaEdicao = document.getElementById('versaoSistemaEdicao').value;
+    var categoriaSistemaEdicao = document.getElementById('categoriaSistemaEdicao').value;
+    var checkSistemaAtivoEdicao = document.getElementById('checkSistemaAtivoEdicao').checked;
+
+
+    $.ajax({
+        url: '/empresa/editarsistema',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            idSistema: idSistemaEdicao,
+            nome: nomeSistemaEdicao,
+            descricao: descricaoSistemaEdicao,
+            versao: versaoSistemaEdicao,
+            categoria: categoriaSistemaEdicao,
+            ativo: checkSistemaAtivoEdicao
+        }),
+        complete: function(xhr, status) {
+            switch (xhr.status) {
+                case 200:
+                    Swal.fire({
+                        title: "Pronto!",
+                        text: "Sistema editado com sucesso!",
+                        icon: "success",
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                    break;
+                case 500:
+                    Swal.fire({
+                        title: "Erro!",
+                        text: "Ocorreu um erro ao editar esse sistema.",
+                        icon: "error"
+                    });
+                    break;
+                default:
+                    alert("Erro desconhecido: " + status);
+            }
+        }
+    });
+
+}
