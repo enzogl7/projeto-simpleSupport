@@ -20,12 +20,12 @@
       <input class="form-control" id="pesquisaEmailUsuario" name="pesquisaEmailUsuario" type="text" placeholder="Insira o email do funcionário">
     </div>
     <div class="col-sm-3">
-      <label for="pesquisaNomeUsuario">Pesquisa por telefone</label>
+      <label for="pesquisaNomeUsuario">Pesquisa por nome</label>
       <input class="form-control" id="pesquisaNomeUsuario" name="pesquisaNomeUsuario" type="text" placeholder="Insira o nome do funcionário">
     </div>
     <div class="col-sm-3">
-      <label for="pesquisaTelefone">Telefone</label>
-      <input class="form-control" id="pesquisaTelefone" name="pesquisaTelefone" type="text" placeholder="Insira o telefone do funcionário">
+      <label for="pesquisaTelefoneUsuario">Telefone</label>
+      <input class="form-control" id="pesquisaTelefoneUsuario" name="pesquisaTelefoneUsuario" type="text" placeholder="Insira o telefone do funcionário">
     </div>
     <div class="col-sm-3 d-flex justify-content-end">
       <button type="button" class="btn btn-outline-primary" onclick="modalConvidarFuncionario()">Convidar funcionário</button>
@@ -51,7 +51,10 @@
         <tr th:each="funcionario : ${funcionarios}">
           <td class="col-sm-1 text-center" th:text="${funcionario.id}"></td>
           <td class="col-sm-1 text-center" th:text="${funcionario.email}"></td>
-          <td class="col-sm-2 text-center" th:text="${funcionario.name}"></td>
+          <td class="col-sm-2 text-center">
+            <span th:text="${funcionario.name}"></span>
+            <span th:if="${funcionario.email == emailLogado}" class="badge bg-warning text-dark ms-2">Responsável</span>
+          </td>
           <td class="col-sm-2 text-center" th:text="${funcionario.number}"></td>
           <td class="col-sm-1 text-center">
             <button th:if="${funcionario.email != emailLogado}" th:data-id="${funcionario.id}" class="btn btn-danger btn-sm" onclick="removerDaEmpresa(this)">Remover</button>
