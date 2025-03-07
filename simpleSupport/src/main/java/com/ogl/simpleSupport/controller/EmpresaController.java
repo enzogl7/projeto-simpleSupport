@@ -156,5 +156,9 @@ public class EmpresaController {
         }
     }
 
+    @GetMapping("/sistemas")
+    public String sistemas(Model model) {
+        return "dashboard/empresa";
+    }
 
 }
