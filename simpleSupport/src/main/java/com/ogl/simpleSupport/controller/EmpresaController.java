@@ -1,12 +1,15 @@
 package com.ogl.simpleSupport.controller;
 
 import com.ogl.simpleSupport.dto.EmpresaDTO;
+import com.ogl.simpleSupport.dto.SistemaDTO;
 import com.ogl.simpleSupport.model.ConviteFuncionario;
 import com.ogl.simpleSupport.model.Empresa;
+import com.ogl.simpleSupport.model.SistemasEmpresa;
 import com.ogl.simpleSupport.model.User;
 import com.ogl.simpleSupport.repository.ConviteRepository;
 import com.ogl.simpleSupport.service.EmpresaService;
 import com.ogl.simpleSupport.service.MailService;
+import com.ogl.simpleSupport.service.SistemasEmpresaService;
 import com.ogl.simpleSupport.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
@@ -37,6 +40,9 @@ public class EmpresaController {
 
     @Autowired
     private ConviteRepository conviteRepository;
+
+    @Autowired
+    private SistemasEmpresaService sistemasEmpresaService;
 
     @PostMapping("/salvaredicao")
     public ResponseEntity salvarEdicaoEmpresa(@RequestBody EmpresaDTO data) {
@@ -158,7 +164,26 @@ public class EmpresaController {
 
     @GetMapping("/sistemas")
     public String sistemas(Model model) {
-        return "dashboard/empresa";
+        model.addAttribute("sistemas", sistemasEmpresaService.findByEmpresa(userService.getUsuarioLogado().getEmpresaResponsavel()));
+        return "empresa/sistemas";
+    }
+
+    @PostMapping("/salvarsistema")
+    public ResponseEntity salvarSistema(@RequestBody SistemaDTO data) {
+        try {
+            SistemasEmpresa sistemaNovo = new SistemasEmpresa();
+            sistemaNovo.setNome(data.nome());
+            sistemaNovo.setDescricao(data.descricao());
+            sistemaNovo.setVersao(data.versao());
+            sistemaNovo.setCategoria(data.categoria());
+            sistemaNovo.setAtivo(data.ativo());
+            sistemaNovo.setEmpresa(userService.getUsuarioLogado().getEmpresaResponsavel());
+            sistemaNovo.setCreatedAt(LocalDateTime.now());
+            sistemasEmpresaService.salvar(sistemaNovo);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
 }

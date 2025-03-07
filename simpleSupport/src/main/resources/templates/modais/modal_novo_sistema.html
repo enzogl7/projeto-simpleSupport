@@ -1,0 +1,38 @@
+<div class="modal fade" id="modalNovoSistema" tabindex="-1" role="dialog" aria-labelledby="modalNovoSistemaTituloCentro" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="text-align: center; width: 100%;">
+        <h5 class="modal-title" id="modalNovoSistemaTitulo" style="font-size: 1.4rem; font-weight: bold;">Novo sistema</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="nomeSistema">Nome*</label>
+          <input class="form-control form-control-lg mb-3" type="text" id="nomeSistema" placeholder="Insira o nome do sistema" required>
+
+          <label for="descricaoSistema">Descrição*</label>
+          <input class="form-control form-control-lg mb-3" type="email" id="descricaoSistema" placeholder="Ex.: Gestão de estoque, controle de finanças" required>
+
+          <label for="versaoSistema">Versão*</label>
+          <input class="form-control form-control-lg mb-3" type="text" id="versaoSistema" placeholder="Ex.: versão 1.0, versão alpha, versão 7.8.1_x" maxlength="20" required>
+
+          <label for="categoriaSistema">Categoria</label>
+          <input class="form-control form-control-lg mb-3" type="text" id="categoriaSistema" placeholder="Insira a categoria do sistema">
+
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="checkSistemaAtivo" checked>
+            <label class="form-check-label" for="checkSistemaAtivo">Ativo*</label>
+          </div>
+
+          <div class="mt-2">
+            <span class="text-muted" style="font-size: 0.8rem">Campos com * são obrigatórios.</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn" style="background-color: #87CEFA; color: white" onclick="novoSistema()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

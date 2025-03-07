@@ -1,5 +1,6 @@
 package com.ogl.simpleSupport.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,6 @@ public class SistemasEmpresa {
     private Boolean ativo;
     private String versao;
     private String categoria;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
 }
